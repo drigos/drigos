@@ -20,7 +20,7 @@ Atualmente trabalhando como DevOps Engineer focado em melhorias no processo de C
 
 <div align="center">
   <br />
-  <h2>Tecnologias</h2>
+  <h2>Principais tecnologias</h2>
   <br />
   <p>Cloud Provider</p>
   <div style="display: inline_block">
