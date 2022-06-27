@@ -14,9 +14,45 @@ Atualmente trabalhando como DevOps Engineer focado em melhorias no processo de C
 
 <div align="center">
   <a href="https://github.com/drigos">
-    <img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs/?username=drigos&layout=compact&langs_count=7&theme=github_dark" />
+    <img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs/?username=drigos&layout=compact&langs_count=8&theme=github_dark" />
   </a>
+</div>
 <br />
+
+<div align="center">
+  <br />
+  <h2>Principais tecnologias</h2>
+  <br />
+  <div style="display: inline_block">
+    <img align="center" alt="AWS" height="30" src="https://img.shields.io/badge/Amazon_AWS-FF9900?style=for-the-badge&logo=amazonaws&logoColor=white" />
+    <img align="center" alt="GitHub Actions" height="30" src="https://img.shields.io/badge/GitHub_Actions-2088FF?style=for-the-badge&logo=github-actions&logoColor=white" />
+    <img align="center" alt="Sonar Cloud" height="30" src="https://img.shields.io/badge/Sonar%20cloud-F3702A?style=for-the-badge&logo=sonarcloud&logoColor=white" />
+    <img align="center" alt="MongoDB" height="30" src="https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white" />
+    <img align="center" alt="Neo4j" height="30" src="https://img.shields.io/badge/Neo4j-018bff?style=for-the-badge&logo=neo4j&logoColor=white" />
+    <img align="center" alt="PostgreSQL" height="30" src="https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white" />
+    <img align="center" alt="Redis" height="30" src="https://img.shields.io/badge/redis-%23DD0031.svg?&style=for-the-badge&logo=redis&logoColor=white" />
+    <img align="center" alt="RabbitMQ" height="30" src="https://img.shields.io/badge/rabbitmq-%23FF6600.svg?&style=for-the-badge&logo=rabbitmq&logoColor=white
+	" />
+    <img align="center" alt="Ansible" height="30" src="https://img.shields.io/badge/Ansible-000000?style=for-the-badge&logo=ansible&logoColor=white" />
+    <img align="center" alt="Alpine" height="30" src="https://img.shields.io/badge/AlpineJS-8BC0D0?style=for-the-badge&logo=alpine.js&logoColor=black
+	" />
+    <img align="center" alt="Apollo GraphQL" height="30" src="https://img.shields.io/badge/Apollo%20GraphQL-311C87?&style=for-the-badge&logo=Apollo%20GraphQL&logoColor=white" />
+    <img align="center" alt="Docker" height="30" src="https://img.shields.io/badge/Docker-2CA5E0?style=for-the-badge&logo=docker&logoColor=white" />
+    <img align="center" alt="GraphQL" height="30" src="https://img.shields.io/badge/GraphQl-E10098?style=for-the-badge&logo=graphql&logoColor=white" />
+    <img align="center" alt="Jest" height="30" src="https://img.shields.io/badge/Jest-C21325?style=for-the-badge&logo=jest&logoColor=white" />
+    <img align="center" alt="Kubernetes" height="30" src="https://img.shields.io/badge/kubernetes-326ce5.svg?&style=for-the-badge&logo=kubernetes&logoColor=white" />
+    <img align="center" alt="Node.js" height="30" src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white" />
+    <img align="center" alt="React" height="30" src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" />
+    <img align="center" alt="Yarn" height="30" src="https://img.shields.io/badge/Yarn-2C8EBB?style=for-the-badge&logo=yarn&logoColor=white" />
+    <img align="center" alt="Selenium" height="30" src="https://img.shields.io/badge/Selenium-43B02A?style=for-the-badge&logo=Selenium&logoColor=white" />
+    <img align="center" alt="CyPress" height="30" src="https://img.shields.io/badge/Cypress-17202C?style=for-the-badge&logo=cypress&logoColor=white" />
+    <img align="center" alt="" height="30" src="" />
+    <img align="center" alt="" height="30" src="" />
+    
+  </div>
+  <br />
+</div>
+
 
 <div align="center">
   <br />
