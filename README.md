@@ -9,10 +9,6 @@ Atualmente trabalhando como DevSecOps Engineer focado em melhorias no processo d
   <a href="https://github.com/drigos">
     <img height="180em" src="https://github-readme-stats.vercel.app/api?username=drigos&show_icons=true&theme=github_dark&include_all_commits=true&count_private=true" />
   </a>
-</div>
-<br />
-
-<div align="center">
   <a href="https://github.com/drigos">
     <img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs/?username=drigos&layout=compact&langs_count=8&theme=github_dark" />
   </a>
