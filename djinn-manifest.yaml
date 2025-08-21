@@ -1,0 +1,140 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: djinn
+  labels:
+    app: djinn
+    version: v1.0.0
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: djinn-config
+  namespace: djinn
+  labels:
+    app: djinn
+    component: config
+data:
+  environment: production
+  log_level: info
+  port: "8080"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: djinn-deployment
+  namespace: djinn
+  labels:
+    app: djinn
+    version: v1.0.0
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: djinn
+  template:
+    metadata:
+      labels:
+        app: djinn
+        version: v1.0.0
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1001
+        fsGroup: 1001
+      containers:
+      - name: djinn
+        image: djinn:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+          name: http
+          protocol: TCP
+        env:
+        - name: ENVIRONMENT
+          valueFrom:
+            configMapKeyRef:
+              name: djinn-config
+              key: environment
+        - name: LOG_LEVEL
+          valueFrom:
+            configMapKeyRef:
+              name: djinn-config
+              key: log_level
+        - name: PORT
+          valueFrom:
+            configMapKeyRef:
+              name: djinn-config
+              key: port
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "256Mi"
+            cpu: "200m"
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 5
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          runAsNonRoot: true
+          runAsUser: 1001
+          capabilities:
+            drop:
+            - ALL
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: djinn-service
+  namespace: djinn
+  labels:
+    app: djinn
+spec:
+  type: ClusterIP
+  ports:
+  - port: 80
+    targetPort: 8080
+    protocol: TCP
+    name: http
+  selector:
+    app: djinn
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: djinn-ingress
+  namespace: djinn
+  labels:
+    app: djinn
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+spec:
+  tls:
+  - hosts:
+    - djinn.example.com
+    secretName: djinn-tls
+  rules:
+  - host: djinn.example.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: djinn-service
+            port:
+              number: 80

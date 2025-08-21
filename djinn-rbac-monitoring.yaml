@@ -1,0 +1,89 @@
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: djinn-service-account
+  namespace: djinn
+  labels:
+    app: djinn
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: djinn-role
+  namespace: djinn
+rules:
+- apiGroups: [""]
+  resources: ["configmaps", "secrets"]
+  verbs: ["get", "list", "watch"]
+- apiGroups: [""]
+  resources: ["pods"]
+  verbs: ["get", "list", "watch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: djinn-role-binding
+  namespace: djinn
+subjects:
+- kind: ServiceAccount
+  name: djinn-service-account
+  namespace: djinn
+roleRef:
+  kind: Role
+  name: djinn-role
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: djinn-pdb
+  namespace: djinn
+  labels:
+    app: djinn
+spec:
+  minAvailable: 2
+  selector:
+    matchLabels:
+      app: djinn
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: djinn-hpa
+  namespace: djinn
+  labels:
+    app: djinn
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: djinn-deployment
+  minReplicas: 3
+  maxReplicas: 10
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 70
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: Utilization
+        averageUtilization: 80
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: djinn-secrets
+  namespace: djinn
+  labels:
+    app: djinn
+type: Opaque
+data:
+  # Base64 encoded secrets - replace with actual values
+  database-password: ZGppbm4tc2VjcmV0LXBhc3N3b3Jk  # djinn-secret-password
+  api-key: ZGppbm4tYXBpLWtleQ==  # djinn-api-key

@@ -1,0 +1,81 @@
+version: '3.8'
+
+services:
+  djinn:
+    image: djinn:latest
+    container_name: djinn-app
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      - ENVIRONMENT=production
+      - LOG_LEVEL=info
+      - PORT=8080
+      - DATABASE_PASSWORD_FILE=/run/secrets/database_password
+      - API_KEY_FILE=/run/secrets/api_key
+    volumes:
+      - djinn-data:/app/data
+      - djinn-logs:/app/logs
+    secrets:
+      - database_password
+      - api_key
+    networks:
+      - djinn-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    user: "1001:1001"
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
+    tmpfs:
+      - /tmp
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+          cpus: '0.2'
+        reservations:
+          memory: 128M
+          cpus: '0.1'
+
+  djinn-nginx:
+    image: nginx:alpine
+    container_name: djinn-proxy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - djinn-ssl:/etc/nginx/ssl:ro
+    depends_on:
+      - djinn
+    networks:
+      - djinn-network
+    security_opt:
+      - no-new-privileges:true
+
+volumes:
+  djinn-data:
+    driver: local
+  djinn-logs:
+    driver: local
+  djinn-ssl:
+    driver: local
+
+secrets:
+  database_password:
+    file: ./secrets/database_password.txt
+  api_key:
+    file: ./secrets/api_key.txt
+
+networks:
+  djinn-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
